@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  jekyll_prod:
+    build: .
+    restart: always
+    networks:
+      - frontend
+    labels:
+      - "traefik.backend=${podName}-jekyll_prod"
+      - "traefik.frontend.rule=Host:${hostRuleProd}"
+      - "traefik.docker.network=${podName}_frontend"
+      - "traefik.port=80"
+
+networks:
+  frontend:

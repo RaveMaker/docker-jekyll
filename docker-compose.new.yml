@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  jekyll_new:
+    image: jekyll/jekyll:latest
+    restart: "no"
+    command: jekyll new /srv/jekyll/ --force
+    volumes:
+      - ./jekyll-new:/srv/jekyll
+    labels:
+      - "traefik.enable=false"
