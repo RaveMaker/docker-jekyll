@@ -3,6 +3,7 @@ version: '3.7'
 services:
   jekyll_prod:
     build: .
+    image: ${podName}/jekyll_prod
     restart: always
     networks:
       - frontend
