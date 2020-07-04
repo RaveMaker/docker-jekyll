@@ -1,19 +1,20 @@
 version: '3.7'
 
 services:
-  jekyll_dev:
-    image: jekyll/jekyll:latest
+  jekyll_prod:
+    build: .
+    image: ${podName}-jekyll_prod
     restart: always
-    command: jekyll serve /srv/jekyll/ --watch --force_polling --verbose
+    ports:
+    - 80:80
     networks:
       - frontend
-    volumes:
-      - ./jekyll:/srv/jekyll
-    labels:
-      - "traefik.backend=${podName}-jekyll_dev"
-      - "traefik.frontend.rule=Host:${hostRuleDev}"
-      - "traefik.docker.network=${podName}_frontend"
-      - "traefik.port=4000"
+    # Deploy block for docker swarm mode only - ignored by docker-compose
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
 
 networks:
   frontend:

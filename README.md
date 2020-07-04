@@ -3,9 +3,9 @@ Dockerfile for Jekyll.
 
 docker-compose file includes:
  - Jekyll New - Creates a new Jekyll website in `jekyll-new` folder
- - Jekyll Dev - `jekyll serve`
+ - Jekyll Serve - `jekyll serve`
  - Jekyll Prod - `jekyll build` and serve with nginx
- - Traefik support for Production and Development
+ - Traefik v2 support
 
 ## Setup
 1. clone the repo
@@ -19,15 +19,21 @@ docker-compose file includes:
 ## Development
 1. create folder `jekyll` and copy your Jekyll project there.
 2. change ownership of jekyll folder `chown 1000:1000 jekyll -R`
-3. run `docker-compose -f docker-compose.dev.yml up`
+3. run `docker-compose -f docker-compose.serve.yml up`
 
-Jekyll will watch the `jekyll` folder and will rebuild the site
+- Jekyll will watch the `jekyll` folder and will rebuild the site
 when a change is made to any of the files.
 
 ## Production
 1. create folder `jekyll` and copy your Jekyll project there.
 2. change ownership of jekyll folder `chown 1000:1000 jekyll -R`
-3. run `docker-compose up`
+3. copy one of the docker-compose (dev/traefik) templates to `docker-compose.yml`
+
+- to create a docker-compose.prod.yml file for docker swarm run:
+
+```
+docker-compose config > docker-compose.prod.yml
+``` 
 
 Jekyll will build the static site from the `jekyll` folder and docker
 will copy it to a new nginx-alpine container without the build tools.

@@ -7,5 +7,3 @@ services:
     command: jekyll new /srv/jekyll/ --force
     volumes:
       - ./jekyll-new:/srv/jekyll
-    labels:
-      - "traefik.enable=false"
